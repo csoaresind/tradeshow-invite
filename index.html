@@ -822,65 +822,118 @@ let currentEvent = '';
 let searchCount = 0;
 
 function buildPrompt(eventName, eventUrl, boothNum, teamSize, teamGoal) {
-  const booth = boothNum.trim() ? `Our Booth: ${boothNum.trim()}` : 'Booth: TBD / Not applicable';
-  const team = teamSize.trim() ? `Team Size Attending: ${teamSize.trim()}` : '';
-  const goal = teamGoal.trim() ? `Our Primary Goal: ${teamGoal.trim()}` : '';
+  const booth = boothNum.trim() ? boothNum.trim() : 'TBD / Not confirmed';
+  const team = teamSize.trim() ? teamSize.trim() : 'TBD';
+  const goal = teamGoal.trim() ? teamGoal.trim() : 'Pipeline generation — book discovery calls with shift-based operations leaders';
 
   return `You are a trade-show intelligence analyst for Indeavor (www.indeavor.com), a workforce management and scheduling platform built for complex shift-based operations — manufacturing, energy, utilities, public safety, and government.
 
-Your job: Research the event below using web search, then write a concise, paste-ready Outlook calendar invite body for the Indeavor sales team attending this event.
+Your job: Research the event below using live web search, then write a structured, professional calendar invite body for the Indeavor sales team attending this event.
 
-EVENT DETAILS:
+EVENT INPUTS:
 Event Name: ${eventName}
 Event URL: ${eventUrl}
-${booth}
-${team}
-${goal}
+Our Booth: ${booth}
+Team Size: ${team}
+Primary Goal: ${goal}
 
 RESEARCH INSTRUCTIONS:
-1. Crawl the event website and subpages (agenda, speakers, exhibitors, registration, networking, venue/floor plan).
-2. Identify companies exhibiting or attending that match Indeavor's ICP: manufacturing, energy, utilities, public safety, government — especially those running complex shift-based workforces.
-3. Identify speakers presenting on topics relevant to workforce management, scheduling, labor compliance, operational efficiency, ERP/HCM systems, or supply chain operations.
-4. Find networking events, social events, or receptions — these are prime hunting time.
-5. Extract logistics: venue address, dates, badge pickup, key links.
+Crawl the event website thoroughly — homepage, exhibitor directory, agenda/speakers, networking/social events, venue/registration pages. Navigate subpages as needed. Extract real data. Never fabricate.
 
-OUTPUT INSTRUCTIONS:
-Write ONLY the calendar invite body — no preamble, no meta-commentary, no markdown symbols (no **, no ##, no ---).
-Use plain text with CAPITALIZED SECTION HEADERS and clean spacing.
-Maximum 1,000 words. Be tight. Every line should help the team hunt.
-Write in second person ("you", "your team") — this is a briefing, not a report.
-The tone is direct, energetic, and action-oriented. This team is going to sell.
+OUTPUT FORMAT RULES:
+- Plain text only — NO markdown symbols (no **, no ##, no ---, no bullet dashes)
+- Use BOLD CAPITALIZED SECTION HEADERS followed by a blank line
+- Use clean spacing between sections
+- Tables: use simple aligned columns with pipe separators where helpful
+- Maximum 1,000 words total
+- Every section must contain specific, real data from your research — no placeholders
+- Tone: direct, precise, action-oriented — written for salespeople who are going to hunt
 
-USE THIS EXACT STRUCTURE:
+WRITE THE INVITE BODY USING EXACTLY THIS STRUCTURE:
 
-[EVENT NAME] — Team Briefing
-[Dates] | [Venue, City] | [Website]
+[EVENT NAME IN ALL CAPS] — TEAM BRIEFING
+[Dates] | [Venue, City, Country] | [Website]
+Prepared for Indeavor Sales Team | [Generation Date]
 
-WHY WE'RE HERE
-2-3 sentences. Why this event matters for Indeavor. What industry/persona concentration makes it a hunting ground. What our goal is.
+─────────────────────────────────────────
 
-EVENT OVERVIEW
-Dates, venue address, expected attendance, key focus/theme. Badge pickup details if found.
+1. WHY WE'RE HERE
 
-TOP TARGET COMPANIES  (list 8-15 companies)
-For each: Company Name — one line on why they're a fit for Indeavor (industry, size signal, shift-based operations, known ERP/HCM, or any trigger found). Include booth number if available.
+2-3 tight sentences: Why this event matters for Indeavor specifically. What concentration of ICP companies/personas makes it worth attending. What success looks like for this trip.
 
-SPEAKERS TO CATCH  (list 3-8 if relevant sessions found)
-For each: Speaker Name, Title, Company — Session title — Date/Time. One line on why relevant to our pitch.
+─────────────────────────────────────────
 
-NETWORKING & SOCIAL EVENTS  (if found)
-List any receptions, dinners, or social events with date, time, location. These are prime pipeline moments.
+2. EVENT SNAPSHOT
 
-LOGISTICS
-- Venue full address
-- Badge pickup location and hours
-- Key event links (app download, agenda URL, exhibitor directory)
-- Any must-know logistics
+Present as a clean key-value block:
+Dates: [full dates + day count]
+Venue: [full venue name + address]
+Attendance: [expected number]
+Format: [tradeshow / conference / hybrid]
+Our Booth: [booth number or TBD]
+Badge: [type + cost]
+Event App / Hashtag: [if found]
 
-HUNT PRIORITIES — YOUR TOP 5 ACTIONS
-Numbered list. Specific, concrete, actionable. e.g. "1. Hit [Company X] booth on Day 1 — they're mid-ERP migration and a perfect ICP fit." Make these sharp.
+─────────────────────────────────────────
 
-End with one motivating line for the team.`;
+3. ICP FIT ASSESSMENT
+
+One paragraph (4-6 sentences). Rate the event LOW / MODERATE / HIGH for Indeavor's ICP. Explain what makes it a fit or not. Name the specific industry segments present that match Indeavor's sweet spot (shift-based manufacturing, energy, utilities, public safety). Give a concrete recommendation: which exhibitor subset or persona to prioritize and which to skip.
+
+─────────────────────────────────────────
+
+4. TOP TARGET COMPANIES
+
+List 10-15 companies. For each, write ONE punchy line explaining the ICP fit — reference their industry, scale signal, shift-based operations angle, or any specific trigger found. Include booth number if available.
+
+Format each entry as:
+[Company Name] (Booth #XXX) — [one line ICP fit reason]
+
+─────────────────────────────────────────
+
+5. SPEAKERS TO CATCH
+
+List only speakers with relevance to workforce management, scheduling, labor compliance, ERP/HCM systems, or operational efficiency. Skip irrelevant speakers entirely. For each include session time if found.
+
+Format each entry as:
+[Name], [Title], [Company] — "[Session Title]" — [Date/Time if known]
+Why relevant: [one line]
+
+If no relevant speakers found, write: "No high-relevance speakers identified for this event — focus time on floor."
+
+─────────────────────────────────────────
+
+6. NETWORKING & SOCIAL EVENTS
+
+List any receptions, dinners, roundtables, or social events with date, time, and location. Note if they are invitation-only. These are prime pipeline moments — be specific.
+
+If none found: "No formal networking events published. Check event app on-site for last-minute additions."
+
+─────────────────────────────────────────
+
+7. LOGISTICS
+
+- Venue address (full)
+- Badge pickup: location + hours
+- Exhibit hall hours (all days)
+- Event app or digital guide link
+- Key URLs (exhibitor directory, agenda, floor plan)
+
+─────────────────────────────────────────
+
+8. YOUR TOP 5 HUNT PRIORITIES
+
+Five numbered, specific, actionable priorities. Each should name a real company or action from your research. These are the five things the team must do to make this event a success.
+
+1. [Specific action tied to a real company or opportunity]
+2. [Specific action]
+3. [Specific action]
+4. [Specific action]
+5. [Specific action]
+
+─────────────────────────────────────────
+
+Close with one sharp, motivating line for the team.`;
 }
 
 async function runGenerator() {
